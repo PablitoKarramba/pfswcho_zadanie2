@@ -30,5 +30,8 @@ jobs:
         with:
           context: .
           file: ./dockerfile.v1
+          builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: romaniutki/repolaby:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/repolaby:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/repolaby:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/repolaby:buildcache,mode=max
